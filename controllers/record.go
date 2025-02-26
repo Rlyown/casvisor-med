@@ -125,6 +125,13 @@ func (c *ApiController) AddRecord() {
 		return
 	}
 
+	if record.ClientIp == "" {
+		record.ClientIp = c.getClientIp()
+	}
+	if record.UserAgent == "" {
+		record.UserAgent = c.getUserAgent()
+	}
+
 	_, err = handleRequestUri(record)
 	if err != nil {
 		c.ResponseError(err.Error())
